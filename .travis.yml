@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - '4'
+#http://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
+before_install:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
