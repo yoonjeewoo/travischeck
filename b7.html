@@ -1,0 +1,58 @@
+<html>
+<!-- Min VS original -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script>  
+<script src="https://cdn.firebase.com/js/client/2.3.2/firebase.js"></script>
+<script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+
+<!-- Angular -->
+<script>  
+var app = angular.module("Bookmark", ['firebase']);  
+var car;
+app.controller("Ctrl", function ($scope, $firebaseArray) {
+	 
+   $scope.name;
+   $scope.age;
+   // var car = {
+   //    var A = {
+   //    name:"Fiat", 
+   //    age:"22"
+   //    },
+   //    var B = {
+   //    name:"Biat", 
+   //    age:"27"
+   // };
+    var firebaseURL = "https://ah-choo.firebaseio.com/people/";
+
+    $scope.getList = function() {
+    	var echoRef = new Firebase(firebaseURL);
+  		var query = echoRef.orderByChild("name");
+  		$scope.arr = $firebaseArray(query);
+    }
+
+    $scope.add2 = function() { 
+  		$scope.arr.$add({
+    		name: $scope.name,
+    		age: $scope.age
+  		});   
+    }
+    
+    // load the list!
+    $scope.getList();
+});  
+</script> 
+
+<body ng-app="Bookmark" ng-controller="Ctrl">
+<h1>Hi! {{arr.length}}</h1>
+<ol ng-repeat="u in arr">
+  <li> {{u.name}} {{u.age}}
+</ol>
+<form>
+<input ng-model="name">
+<input ng-model="age">
+<input type="submit" ng-click="add2();">
+
+</form>
+  
+
+</body>
+</html>
